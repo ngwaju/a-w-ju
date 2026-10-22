@@ -1,0 +1,42 @@
+import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { Simulator, WEEKS } from "@/components/course";
+import { META } from "@/components/site-nav";
+
+afterEach(() => { cleanup(); vi.useRealTimers(); });
+
+describe("Course requirements", () => {
+  it("uses the Thursday course time and room", () => {
+    expect(META).toEqual(["THU 16:15", "HG", "SPRACHE: GERMAN"]);
+  });
+  it("includes exactly the supplied weeks without a week 12", () => {
+    expect(WEEKS.map(([week]) => week)).toEqual(["14", "13", "11", "10", "09", "08", "07", "06", "05", "04", "03", "02", "01"]);
+    expect(WEEKS.at(-1)?.[2]).toBe("Einführung in A&W");
+  });
+});
+
+describe("Simulator controls", () => {
+  it("advances, resets and resets progress when changing algorithms", () => {
+    render(<Simulator />);
+    fireEvent.click(screen.getByRole("button", { name: "01 Tarjan" }));
+    fireEvent.click(screen.getByRole("button", { name: "Step", exact: true }));
+    expect(screen.getByLabelText("Fortschritt").textContent).toContain("STEP 002");
+    fireEvent.click(screen.getByRole("button", { name: "Reset", exact: true }));
+    expect(screen.getByLabelText("Fortschritt").textContent).toContain("STEP 001");
+    fireEvent.click(screen.getByRole("button", { name: "Step", exact: true }));
+    fireEvent.click(screen.getByRole("button", { name: "02 Euler Tour" }));
+    expect(screen.getByLabelText("Fortschritt").textContent).toContain("STEP 001");
+    expect(screen.getByRole("heading", { name: "Euler Tour" })).toBeDefined();
+  });
+  it("plays frames and stops when paused", () => {
+    vi.useFakeTimers();
+    render(<Simulator />);
+    fireEvent.click(screen.getByRole("button", { name: "01 Tarjan" }));
+    fireEvent.click(screen.getByRole("button", { name: "Play", exact: true }));
+    act(() => { vi.advanceTimersByTime(230); });
+    expect(screen.getByLabelText("Fortschritt").textContent).toContain("STEP 002");
+    fireEvent.click(screen.getByRole("button", { name: "Pause", exact: true }));
+    act(() => { vi.advanceTimersByTime(1000); });
+    expect(screen.getByLabelText("Fortschritt").textContent).toContain("STEP 002");
+  });
+});
