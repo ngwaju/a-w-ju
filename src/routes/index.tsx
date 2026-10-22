@@ -29,7 +29,7 @@ function Home() {
         </div>
       </header>
       <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-6 py-16">
-        <p className="font-mono text-xs uppercase tracking-normal text-muted-foreground">Algorithmen &amp; Wahrscheinlichkeiten · HS 2026</p>
+        <p className="font-mono text-xs uppercase tracking-normal text-muted-foreground">Algorithmen &amp; Wahrscheinlichkeiten · FS 2027</p>
         <h1 className="mt-6 text-4xl font-extrabold leading-[0.95] tracking-normal md:text-7xl">
           A&amp;W<span className="text-primary">//</span><br />ETH ZÜRICH
         </h1>
