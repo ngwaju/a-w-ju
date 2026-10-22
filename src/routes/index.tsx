@@ -4,9 +4,9 @@ import { Brand, MetaBadges } from "@/components/site-nav";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "A&W // ETH Zürich — Algorithmen & Wahrscheinlichkeiten" },
+      { title: "A&W // ju ngwa — Algorithmen & Wahrscheinlichkeiten" },
       { name: "description", content: "TA-Seite für Algorithmen & Wahrscheinlichkeiten: Kursmaterialien und interaktiver Algorithm Simulator." },
-      { property: "og:title", content: "A&W // ETH Zürich" },
+      { property: "og:title", content: "A&W" },
       { property: "og:description", content: "Kursmaterialien und interaktiver Algorithm Simulator für A&W." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
 
 const ENTRIES = [
   { to: "/materials" as const, n: "01", title: "Course Materials", desc: "Wochenübersicht aller Übungsstunden, Themen und Aufgaben." },
-  { to: "/lab" as const, n: "02", title: "Algorithm Simulator", desc: "12 interaktive Visualisierungen — Schritt für Schritt." },
+  { to: "/lab" as const, n: "02", title: "Algorithm Simulator", desc: " interaktive Visualisierungen — Schritt für Schritt." },
 ];
 
 function Home() {
