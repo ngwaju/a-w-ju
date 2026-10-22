@@ -8,9 +8,9 @@ import { WEEKS } from "@/components/course";
 export const Route = createFileRoute("/materials")({
   head: () => ({
     meta: [
-      { title: "Course Materials — A&W // ETH Zürich" },
+      { title: "Course Materials — A&W // ju ngwa" },
       { name: "description", content: "Wochenübersicht der A&W-Übungsstunden: Graphen, Wahrscheinlichkeit, randomisierte Algorithmen, Flows und Geometrie." },
-      { property: "og:title", content: "Course Materials — A&W // ETH Zürich" },
+      { property: "og:title", content: "Course Materials — A&W" },
       { property: "og:description", content: "Alle Wochen und Themen der A&W-Übungsstunde." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -31,7 +31,7 @@ function Materials() {
             <p className="font-mono text-xs text-primary">§ 01</p>
             <h1 className="mt-2 text-3xl font-bold">Course Materials</h1>
           </div>
-          <span className="font-mono text-xs text-muted-foreground">13 WOCHEN · HS 2026</span>
+          <span className="font-mono text-xs text-muted-foreground">13 WOCHEN · FS 2027</span>
         </div>
         <ul className="weeks-grid" onMouseLeave={() => setPreview(null)}>
           {WEEKS.map(([n, title]) => (
