@@ -5,10 +5,10 @@ import { Simulator } from "@/components/course";
 export const Route = createFileRoute("/lab")({
   head: () => ({
     meta: [
-      { title: "Algorithm Simulator — A&W // ETH Zürich" },
-      { name: "description", content: "Interaktiver Simulator für 12 Algorithmen: Tarjan, Euler Tour, Max Flow, Min-Cut, Convex Hull und mehr." },
-      { property: "og:title", content: "Algorithm Simulator — A&W // ETH Zürich" },
-      { property: "og:description", content: "12 Algorithmen Schritt für Schritt visualisiert." },
+      { title: "Algorithm Simulator — A&W " },
+      { name: "description", content: "Interaktiver Simulator für Algorithmen: Tarjan, Euler Tour, Max Flow, Min-Cut, Convex Hull und mehr." },
+      { property: "og:title", content: "Algorithm Simulator — A&W" },
+      { property: "og:description", content: "Algorithmen Schritt für Schritt visualisiert." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
