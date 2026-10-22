@@ -1,6 +1,8 @@
 // Simulator uses dense index math; strict indexed-access checks disabled for this file.
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react";
+import { Play, Pause, StepForward, RotateCcw } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 /* ---------------- Weeks ---------------- */
 export const WEEKS: [string, string, string][] = [
@@ -16,7 +18,7 @@ export const WEEKS: [string, string, string][] = [
   ["04", "Färbungen", "Hopcroft-Karp, Färbungen, Greedy Färbung, Smallest Last Färbung"],
   ["03", "TSP & Matchings", "TSP, TSP Approximationen, Matchings, Augmentierende Pfade, Satz von Berge, Satz von Hall"],
   ["02", "Zusammenhang & Kreise", "Zusammenhang, Artikulationsknoten, Brücken, Tarjan Algorithmus, Euler Tour, Hamiltonkreis, Dirac"],
-  ["01", "Einführung", "Einführung in Algorithmen und Wahrscheinlichkeiten, Organisatorisches, Graphen-Grundlagen"],
+  ["01", "Einführung in A&W", "Einführung in A&W"],
 ];
 
 /* ---------------- Simulator types ---------------- */
@@ -304,7 +306,7 @@ function Canvas({ scene, frame }: { scene: Scene; frame: Frame }) {
         {vals.map((v, i) => (
           <div key={i} className={`w-14 border-y border-l border-foreground/20 last:border-r font-mono text-center ${marks[i] ? "bg-accent" : ""}`}>
             <div className="border-b border-foreground/10 py-1 text-[10px] text-muted-foreground">{i}</div>
-            <div className={`py-3 text-lg ${marks[i] === "DUP" ? "text-destructive font-bold" : ""}`}>{v}</div>
+            <div className={`py-3 text-lg ${marks[i] === "DUP" ? "text-primary font-bold" : ""}`}>{v}</div>
             <div className="h-6 text-sm">{marks[i] !== "DUP" ? marks[i] : ""}</div>
           </div>
         ))}
@@ -353,7 +355,7 @@ function Canvas({ scene, frame }: { scene: Scene; frame: Frame }) {
 export function Simulator() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
-  return mounted ? <SimulatorInner /> : <div className="min-h-[600px] border-t border-foreground" />;
+  return mounted ? <SimulatorInner /> : <div className="simulator-loading border-t border-foreground" />;
 }
 
 function SimulatorInner() {
@@ -371,35 +373,38 @@ function SimulatorInner() {
     const t = setTimeout(() => setI((x) => x + 1), 1100 / speed);
     return () => clearTimeout(t);
   }, [playing, i, last, speed]);
-  const btn = "border border-border px-4 py-2 font-mono text-xs uppercase tracking-widest transition-colors hover:bg-foreground hover:text-background disabled:opacity-30";
-
+  const frame = scene.frames[Math.min(i, last)];
   return (
-    <div className="grid border-t border-foreground md:grid-cols-[260px_1fr]">
-      <ol className="border-b border-border md:border-b-0 md:border-r">
+    <div className="simulator-grid">
+      <ol className="algorithm-list" aria-label="Algorithmen">
         {ALGOS.map(([name], k) => (
           <li key={name}>
-            <button onClick={() => setAlgo(k)}
-              className={`flex w-full items-baseline gap-4 border-b border-border px-4 py-3 text-left font-mono text-sm transition-colors ${k === algo ? "bg-primary text-primary-foreground" : "hover:bg-accent hover:text-accent-foreground"}`}>
-              <span className="text-[10px] opacity-60">{String(k + 1).padStart(2, "0")}</span>{name}
-            </button>
+            <Button variant="ghost" onClick={() => { setPlaying(false); setI(0); setAlgo(k); }}
+              aria-pressed={k === algo}
+              className={`algorithm-choice ${k === algo ? "bg-accent text-primary" : "text-foreground"}`}>
+              <span className="text-[10px] text-muted-foreground">{String(k + 1).padStart(2, "0")}</span>
+              <span>{name}</span>
+            </Button>
           </li>
         ))}
       </ol>
-      <div className="flex flex-col">
-        <div className="flex items-baseline justify-between border-b border-border px-6 py-4">
-          <h3 className="text-2xl font-bold tracking-tight">{ALGOS[algo][0]}</h3>
-          <span className="font-mono text-xs text-muted-foreground">STEP {String(i + 1).padStart(3, "0")} / {String(last + 1).padStart(3, "0")}</span>
+      <div className="simulation-stage">
+        <div className="simulation-title flex items-center justify-between gap-3 border-b border-border px-4 py-3">
+          <h2 className="text-xl font-bold">{ALGOS[algo][0]}</h2>
+          <span aria-label="Fortschritt" className="shrink-0 font-mono text-[11px] text-muted-foreground">STEP {String(Math.min(i, last) + 1).padStart(3, "0")} / {String(last + 1).padStart(3, "0")}</span>
         </div>
-        <div className="aspect-[3/2] bg-canvas"><Canvas scene={scene} frame={scene.frames[i]} /></div>
-        <p className="min-h-[3.5rem] border-y border-border px-6 py-4 font-mono text-sm">
-          <span className="mr-3 text-primary">▸</span>{scene.frames[i].msg}
+        <div className="simulation-canvas bg-canvas"><Canvas scene={scene} frame={frame} /></div>
+        <p className="simulation-message border-y border-border px-4 py-3 font-mono text-xs">
+          <span className="mr-3 text-primary">▸</span>{frame.msg}
         </p>
-        <div className="flex flex-wrap items-center gap-2 px-6 py-4">
-          <button className={btn} onClick={() => (i >= last ? (setI(0), setPlaying(true)) : setPlaying((p) => !p))}>{playing ? "Pause" : "Play"}</button>
-          <button className={btn} disabled={i >= last} onClick={() => { setPlaying(false); setI((x) => Math.min(last, x + 1)); }}>Step</button>
-          <button className={btn} onClick={() => setSeed((s) => s + 1)}>Reset</button>
-          <label className="ml-auto flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-            Speed <input type="range" min={1} max={10} value={speed} onChange={(e) => setSpeed(+e.target.value)} className="w-28 accent-primary" />
+        <div className="simulation-controls flex flex-wrap items-center gap-2 px-4 py-3">
+          <Button variant="outline" size="sm" onClick={() => (i >= last ? (setI(0), setPlaying(true)) : setPlaying((p) => !p))}>
+            {playing ? <Pause /> : <Play />}{playing ? "Pause" : "Play"}
+          </Button>
+          <Button variant="outline" size="sm" disabled={i >= last} onClick={() => { setPlaying(false); setI((x) => Math.min(last, x + 1)); }}><StepForward />Step</Button>
+          <Button variant="outline" size="sm" onClick={() => { setPlaying(false); setI(0); setSeed((s) => s + 1); }}><RotateCcw />Reset</Button>
+          <label className="ml-auto flex items-center gap-2 font-mono text-[11px] text-muted-foreground">
+            Speed <input aria-label="Speed" type="range" min={1} max={10} value={speed} onChange={(e) => setSpeed(+e.target.value)} className="w-20 accent-primary" />
             <span className="w-6 text-foreground">{speed}×</span>
           </label>
         </div>
@@ -407,4 +412,3 @@ function SimulatorInner() {
     </div>
   );
 }
-
