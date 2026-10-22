@@ -16,8 +16,8 @@ export const Route = createFileRoute("/")({
 });
 
 const ENTRIES = [
-  { to: "/materials" as const, n: "01", title: "Course Materials", desc: "Wochenübersicht aller Übungsstunden, Themen und Aufgaben." },
-  { to: "/lab" as const, n: "02", title: "Algorithm Simulator", desc: " interaktive Visualisierungen — Schritt für Schritt." },
+  { to: "/materials/" as const, n: "01", title: "Course Materials", desc: "Wochenübersicht aller Übungsstunden, Themen und Aufgaben." },
+  { to: "/lab/" as const, n: "02", title: "Algorithm Simulator", desc: " interaktive Visualisierungen — Schritt für Schritt." },
 ];
 
 function Home() {

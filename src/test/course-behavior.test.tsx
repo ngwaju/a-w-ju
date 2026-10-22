@@ -19,11 +19,11 @@ describe("Simulator controls", () => {
   it("advances, resets and resets progress when changing algorithms", () => {
     render(<Simulator />);
     fireEvent.click(screen.getByRole("button", { name: "01 Tarjan" }));
-    fireEvent.click(screen.getByRole("button", { name: "Step", exact: true }));
+    fireEvent.click(screen.getByRole("button", { name: "Step" }));
     expect(screen.getByLabelText("Fortschritt").textContent).toContain("STEP 002");
-    fireEvent.click(screen.getByRole("button", { name: "Reset", exact: true }));
+    fireEvent.click(screen.getByRole("button", { name: "Reset" }));
     expect(screen.getByLabelText("Fortschritt").textContent).toContain("STEP 001");
-    fireEvent.click(screen.getByRole("button", { name: "Step", exact: true }));
+    fireEvent.click(screen.getByRole("button", { name: "Step" }));
     fireEvent.click(screen.getByRole("button", { name: "02 Euler Tour" }));
     expect(screen.getByLabelText("Fortschritt").textContent).toContain("STEP 001");
     expect(screen.getByRole("heading", { name: "Euler Tour" })).toBeDefined();
@@ -32,10 +32,10 @@ describe("Simulator controls", () => {
     vi.useFakeTimers();
     render(<Simulator />);
     fireEvent.click(screen.getByRole("button", { name: "01 Tarjan" }));
-    fireEvent.click(screen.getByRole("button", { name: "Play", exact: true }));
+    fireEvent.click(screen.getByRole("button", { name: "Play" }));
     act(() => { vi.advanceTimersByTime(230); });
     expect(screen.getByLabelText("Fortschritt").textContent).toContain("STEP 002");
-    fireEvent.click(screen.getByRole("button", { name: "Pause", exact: true }));
+    fireEvent.click(screen.getByRole("button", { name: "Pause" }));
     act(() => { vi.advanceTimersByTime(1000); });
     expect(screen.getByLabelText("Fortschritt").textContent).toContain("STEP 002");
   });
