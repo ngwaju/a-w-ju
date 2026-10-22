@@ -2,7 +2,8 @@ name: Deploy site to Pages
 
 on:
   push:
-    branches: ["main"] # Change to "master" if your repository default branch is master
+    branches: ["main"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -37,10 +38,20 @@ jobs:
       - name: List files to check build folder
         run: ls -la
 
+      - name: Verify build output
+        run: |
+          test -f dist/client/index.html || {
+            echo "::error::dist/client/index.html is missing — the build produced no static pages (see Build project output above)"
+            exit 1
+          }
+
+      - name: SPA fallback for unknown paths
+        run: cp dist/client/index.html dist/client/404.html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'dist'
+          path: dist/client
 
       - name: Deploy to GitHub Pages
         id: deployment

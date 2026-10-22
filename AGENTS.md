@@ -14,3 +14,4 @@
 - Keep homepage, materials and simulator as separate TanStack leaf routes; preserve their URLs to support navigation and direct entry.
 - Use shared screen-height workspace classes with flexible canvas space on desktop and natural scrolling on mobile, so controls and all course weeks remain visible.
 - Week previews share one fixed-height detail region; pointer preview and persistent keyboard/click selection use the same supplied course data.
+- GitHub Pages deployment (workflow `.github/workflows/main.yml`, repo `a-w-ju`, base `/a-w-ju/`): the build prerenders `/`, `/materials/` and `/lab/` to static HTML and uploads `dist/client`. Because of this, trailing-slash URLs are canonical (`trailingSlash: "always"` in `src/router.tsx`; all `Link` targets use trailing slashes) and `vite: { base }` applies only outside the Lovable sandbox so the dev preview and a Lovable publish keep serving at `/`.
