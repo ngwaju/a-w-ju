@@ -34,10 +34,13 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: List files to check build folder
+        run: ls -la
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: 'dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
