@@ -9,6 +9,9 @@ export const getRouter = () => {
     routeTree,
     context: { queryClient },
     scrollRestoration: true,
+    // Trailing-slash URLs are canonical; static hosts (GitHub Pages) serve
+    // prerendered pages as <route>/index.html, which requires this.
+    trailingSlash: "always",
     defaultPreloadStaleTime: 0,
   });
 
