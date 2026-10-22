@@ -366,6 +366,12 @@ function Canvas({ scene, frame }: { scene: Scene; frame: Frame }) {
 }
 
 function Simulator() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  return mounted ? <SimulatorInner /> : <div className="min-h-[600px] border-t border-foreground" />;
+}
+
+function SimulatorInner() {
   const [algo, setAlgo] = useState(11);
   const [seed, setSeed] = useState(0);
   const [i, setI] = useState(0);
