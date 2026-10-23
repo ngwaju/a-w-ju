@@ -40,21 +40,29 @@ jobs:
       - name: Build project
         run: bun run build
 
-      - name: Verify build output
+      # The build writes static files to dist/client or .output/public
+      # depending on the environment; collect whichever exists into _site.
+      - name: Collect static site
         run: |
-          echo "dist contents:"; find dist -maxdepth 3 -name '*.html' || true
-          test -f dist/client/index.html || {
-            echo "::error::dist/client/index.html is missing — the build produced no static pages (see Build project output above)"
+          for d in dist/client .output/public; do
+            if [ -f "$d/index.html" ]; then
+              echo "Using $d"; rm -rf _site; cp -r "$d" _site; break
+            fi
+          done
+          test -f _site/index.html || {
+            echo "::error::No index.html in dist/client or .output/public — the build produced no static pages"
+            find . -path ./node_modules -prune -o -name '*.html' -print
             exit 1
           }
+          find _site -name '*.html'
 
       - name: SPA fallback for unknown paths
-        run: cp dist/client/index.html dist/client/404.html
+        run: cp _site/index.html _site/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/client
+          path: _site
 
       - name: Deploy to GitHub Pages
         id: deployment
