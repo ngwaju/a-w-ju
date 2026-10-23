@@ -29,17 +29,20 @@ jobs:
         with:
           node-version: 22
 
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      # Install the exact versions from bun.lock (npm ignores it and can pull
+      # newer tooling that skips prerendering).
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: bun install --frozen-lockfile
 
       - name: Build project
-        run: npm run build
-
-      - name: List files to check build folder
-        run: ls -la
+        run: bun run build
 
       - name: Verify build output
         run: |
+          echo "dist contents:"; find dist -maxdepth 3 -name '*.html' || true
           test -f dist/client/index.html || {
             echo "::error::dist/client/index.html is missing — the build produced no static pages (see Build project output above)"
             exit 1
