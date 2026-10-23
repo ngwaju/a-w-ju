@@ -18,6 +18,7 @@ export const Route = createFileRoute("/")({
 const ENTRIES = [
   { to: "/materials/" as const, n: "01", title: "Course Materials", desc: "Wochenübersicht aller Übungsstunden, Themen und Aufgaben." },
   { to: "/lab/" as const, n: "02", title: "Algorithm Simulator", desc: " interaktive Visualisierungen — Schritt für Schritt." },
+  { to: "/lab/" as const, n: "03", title: "Algorithm Simulator", desc: " interaktive Visualisierungen — Schritt für Schritt." },
 ];
 
 function Home() {
@@ -31,7 +32,7 @@ function Home() {
       <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-6 py-16">
         <p className="font-mono text-xs uppercase tracking-normal text-muted-foreground">Algorithmen &amp; Wahrscheinlichkeiten · FS 2027</p>
         <h1 className="mt-6 text-4xl font-extrabold leading-[0.95] tracking-normal md:text-7xl">
-          A&amp;W<span className="text-primary"></span><br />
+          A&amp;W<span className="text-primary"> @ </span>ju<br />
         </h1>
         <div className="mt-12 grid border-t border-foreground md:grid-cols-2">
           {ENTRIES.map((e, i) => (
