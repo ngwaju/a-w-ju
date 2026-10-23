@@ -6,7 +6,7 @@ export const META = ["THU 16:15", "HG", "SPRACHE: GERMAN"];
 export function Brand() {
   return (
     <span className="font-mono text-sm font-bold tracking-normal">
-      A&amp;W<span className="text-primary">//</span> ETH ZÜRICH
+      A&amp;W<span className="text-primary">//</span> Junior Ngwa
     </span>
   );
 }
