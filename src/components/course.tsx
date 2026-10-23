@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 export const WEEKS: [string, string, string][] = [
   ["14", "Konvexe Hülle", "Konvexe Hülle, Jarvis-Wrap, Local-Repair, Flow und DP Aufgaben"],
   ["13", "Min-Cut & Enclosing Disk", "Min-Cut, Bootstrapping-Algorithmus, Smallest Enclosing Disk, Flow Aufgaben"],
+  ["12", "Holiday", "Holiday"],
   ["11", "Long Path & Flows", "Long Path Algorithmus, Flows, Maxflow Mincut, Ford-Fulkerson"],
   ["10", "QuickSort & Duplikate", "QuickSort, Duplikate finden mit direktem Sortieren, mit Hashing, mit Hase-Igel Algorithmus"],
   ["09", "Monte-Carlo & Las-Vegas", "Targetshooting, Monte-Carlo und Las-Vegas Algorithmen, Fehlerreduktion, Primzahltests"],

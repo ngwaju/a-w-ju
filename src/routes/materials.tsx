@@ -31,7 +31,7 @@ function Materials() {
             <p className="font-mono text-xs text-primary">§ 01</p>
             <h1 className="mt-2 text-3xl font-bold">Course Materials</h1>
           </div>
-          <span className="font-mono text-xs text-muted-foreground">13 WOCHEN · FS 2027</span>
+          <span className="font-mono text-xs text-muted-foreground">14 WOCHEN · FS 2027</span>
         </div>
         <ul className="weeks-grid" onMouseLeave={() => setPreview(null)}>
           {WEEKS.map(([n, title]) => (

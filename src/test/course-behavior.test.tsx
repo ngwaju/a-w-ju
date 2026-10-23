@@ -9,8 +9,9 @@ describe("Course requirements", () => {
   it("uses the Thursday course time and room", () => {
     expect(META).toEqual(["THU 16:15", "HG", "SPRACHE: GERMAN"]);
   });
-  it("includes exactly the supplied weeks without a week 12", () => {
-    expect(WEEKS.map(([week]) => week)).toEqual(["14", "13", "11", "10", "09", "08", "07", "06", "05", "04", "03", "02", "01"]);
+  it("includes every week, with Week 12 as a holiday", () => {
+    expect(WEEKS.map(([week]) => week)).toEqual(["14", "13", "12", "11", "10", "09", "08", "07", "06", "05", "04", "03", "02", "01"]);
+    expect(WEEKS.find(([week]) => week === "12")?.[2]).toBe("Holiday");
     expect(WEEKS.at(-1)?.[2]).toBe("Einführung in A&W");
   });
 });
