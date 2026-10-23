@@ -4,8 +4,8 @@ import { Brand, MetaBadges } from "@/components/site-nav";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "A&W // ju ngwa — Algorithmen & Wahrscheinlichkeiten" },
-      { name: "description", content: "TA-Seite für Algorithmen & Wahrscheinlichkeiten: Kursmaterialien und interaktiver Algorithm Simulator." },
+      { title: "A&W @ju " },
+      { name: "description", content: "TA-Seite von Junior Ngwa für Algorithmen & Wahrscheinlichkeiten: Kursmaterialien und interaktiver Algorithm Simulator." },
       { property: "og:title", content: "A&W" },
       { property: "og:description", content: "Kursmaterialien und interaktiver Algorithm Simulator für A&W." },
       { property: "og:type", content: "website" },
@@ -31,7 +31,7 @@ function Home() {
       <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-6 py-16">
         <p className="font-mono text-xs uppercase tracking-normal text-muted-foreground">Algorithmen &amp; Wahrscheinlichkeiten · FS 2027</p>
         <h1 className="mt-6 text-4xl font-extrabold leading-[0.95] tracking-normal md:text-7xl">
-          A&amp;W<span className="text-primary">//</span><br />ETH ZÜRICH
+          A&amp;W<span className="text-primary">//</span><br />
         </h1>
         <div className="mt-12 grid border-t border-foreground md:grid-cols-2">
           {ENTRIES.map((e, i) => (
